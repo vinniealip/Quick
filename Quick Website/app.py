@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for dark theme and styling
+# Custom CSS with good contrast and readability
 st.markdown("""
 <style>
     /* Hide Streamlit elements */
@@ -20,10 +20,15 @@ st.markdown("""
     header {visibility: hidden;}
     .stDeployButton {display:none;}
     
-    /* Dark theme */
+    /* Clean light theme with good contrast */
     .stApp {
-        background-color: #000000;
-        color: #FFFFFF;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        color: #1a202c;
+    }
+    
+    /* Override Streamlit's default text colors */
+    .stMarkdown {
+        color: #1a202c;
     }
     
     /* Main title */
@@ -31,114 +36,157 @@ st.markdown("""
         font-size: 4rem;
         font-weight: 900;
         text-align: center;
-        color: #FFFFFF;
-        font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-        letter-spacing: 0.2em;
+        color: #2d3748;
+        font-family: 'Georgia', serif;
+        letter-spacing: 0.1em;
         margin: 2rem 0 1rem 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
     
     /* Subtitle */
     .subtitle {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         text-align: center;
-        color: #06B6D4;
+        color: #4a5568;
         margin-bottom: 3rem;
         font-weight: 500;
     }
     
     /* Target display */
     .target-display {
-        font-size: 1.8rem;
+        font-size: 2rem;
         text-align: center;
-        color: #FFFFFF;
-        font-weight: 600;
+        color: #2d3748;
+        font-weight: 700;
         margin: 2rem 0;
-        padding: 1rem;
-        background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
         border-radius: 15px;
-        border: 1px solid #4B5563;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
     /* Timer display */
     .timer-display {
-        font-size: 5rem;
+        font-size: 6rem;
         text-align: center;
-        color: #06B6D4;
-        font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+        color: #2b6cb0;
+        font-family: 'Georgia', serif;
         font-weight: bold;
         margin: 3rem 0;
-        text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        letter-spacing: 0.1em;
+        letter-spacing: 0.05em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
     
     /* Score display */
     .score-display {
-        font-size: 3rem;
+        font-size: 3.5rem;
         text-align: center;
-        color: #10B981;
+        color: #38a169;
         font-weight: bold;
         margin: 2rem 0;
-        font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+        font-family: 'Georgia', serif;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
     
     .accuracy-display {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         text-align: center;
-        color: #F59E0B;
+        color: #d69e2e;
         margin: 1rem 0;
+        font-weight: 600;
     }
     
     /* Completion card */
     .completion-card {
-        background: linear-gradient(135deg, #065F46 0%, #047857 100%);
+        background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
         border-radius: 20px;
         padding: 2rem;
         margin: 2rem 0;
-        border: 2px solid #10B981;
+        border: 2px solid #38a169;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        box-shadow: 0 8px 20px rgba(56, 161, 105, 0.2);
+        color: #1a202c;
+    }
+    
+    .completion-card h3 {
+        color: #1a202c !important;
+        margin-bottom: 1rem;
     }
     
     /* Info card */
     .info-card {
-        background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
         border-radius: 15px;
         padding: 1.5rem;
         margin: 1rem 0;
-        border: 1px solid #4B5563;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        color: #1a202c;
+    }
+    
+    .info-card h3 {
+        color: #2d3748 !important;
+        margin-bottom: 1rem;
     }
     
     /* Custom button styling */
     .stButton > button {
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
         color: white;
         border: none;
         border-radius: 50px;
-        padding: 1rem 3rem;
-        font-size: 1.3rem;
+        padding: 1.2rem 3rem;
+        font-size: 1.4rem;
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
         transition: all 0.3s ease;
         width: 100%;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(72, 187, 120, 0.5);
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
     }
     
     /* Stop button styling */
-    .stop-button > button {
-        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    .stop-button .stButton > button {
+        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%) !important;
         animation: pulse 2s infinite;
-        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3) !important;
+        box-shadow: 0 6px 20px rgba(245, 101, 101, 0.4) !important;
+    }
+    
+    .stop-button .stButton > button:hover {
+        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
+        box-shadow: 0 8px 25px rgba(229, 62, 62, 0.5) !important;
     }
     
     @keyframes pulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background-color: #f7fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 10px !important;
+    }
+    
+    .streamlit-expanderContent {
+        background-color: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #1a202c !important;
+    }
+    
+    /* Footer styling */
+    .footer-text {
+        color: #718096 !important;
+        text-align: center;
+        margin-top: 2rem;
     }
 </style>
 """, unsafe_allow_html=True)
